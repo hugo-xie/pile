@@ -1,0 +1,297 @@
+<style type="text/css">
+    .gridStyle4 {
+    border: 1px solid rgb(212,212,212);
+    width: 99.5%; 
+    height: 500px;
+    margin:auto;
+    margin-top: 20px;
+    }
+    .modal-backdrop{
+z-index: 2;}
+
+</style>
+
+<div class="panel panel-default" style="width: 90%;margin:auto;margin-top: 60px;height: 700px">
+  <div class="panel-heading" style="background-color: rgb(40,84,133);color:white">充电桩列表</div>
+  <div class="panel-body">
+  <div class="container" style="width: 100%" >
+   <div class="row">
+ <!--  <div class="col-md-2">
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1">城市</span>
+      <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+    </div>
+  </div> -->
+  <div class="col-md-2">
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1">电桩ID</span>
+      <input type="text" class="form-control" placeholder="电桩ID" aria-describedby="basic-addon1" id="pileid">
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1">桩主ID</span>
+      <input type="text" class="form-control" placeholder="桩主ID" aria-describedby="basic-addon1" id="ownersid">
+    </div>
+    
+  </div>
+  <div class="col-md-1">
+    <div class="input-group">
+      <button type="button" class="btn btn-success" ng-click="search()">开始搜索</button>
+    </div>
+  </div>
+  </div> 
+        <div id="toolbar" style="margin-top: 10px">
+            <button id="remove" class="btn btn-info"  ng-click="pileopen()" ng-disabled="mySelections.length==0">
+                <i class="glyphicon glyphicon-flash"></i> 设置电桩开放时间
+            </button>
+            <button id="remove" class="btn btn-danger"  ng-click="deleteRelation()" ng-disabled="mySelections.length==0">
+                <i class="glyphicon glyphicon-remove"></i> 删除充电桩
+            </button>
+             <button id="remove" class="btn btn-info"  ng-click="editpile()" ng-disabled="mySelections.length==0">
+                <i class="glyphicon glyphicon-flash"></i> 重新编辑充电桩
+            </button>
+        </div>
+        <div class="gridStyle4" ng-grid="gridOptions"></div>
+      </div>
+  </div>
+</div>
+ 
+
+
+
+<div class="modal  fade " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id="editpilemodal" style="z-index: 3;margin-top: 70px">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">编辑已有充电桩</h4>
+      </div>
+      <div class="modal-body" style="height: 700px">
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">电桩ID</span>
+          <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" disabled id="epileid" >
+        </div>
+        <div class="input-group" style="margin-top: 30px">
+          <span class="input-group-addon" id="basic-addon1" >电桩名称</span>
+          <input type="text" class="form-control" placeholder="pilename" aria-describedby="basic-addon1"  id="epilename">
+        </div>
+        <div class="input-group" style="margin-top: 30px">
+          <span class="input-group-addon" id="basic-addon1" >桩柱id</span>
+          <input type="text" class="form-control" placeholder="pilername" aria-describedby="basic-addon1" id="epilerid" ng-blur="testid()">
+        </div>
+        <span  id="basic-addon1" ng-if="expendid" style="display: block;color:red">只能输入数字</span>
+       <div class="input-group" style="margin-top: 30px">
+          <span class="input-group-addon" id="basic-addon1" >位置</span>
+          <input type="text" class="form-control" placeholder="address" aria-describedby="basic-addon1" id="epileaddress">
+        </div>
+        <div class="input-group" style="margin-top: 30px">
+          <span class="input-group-addon" id="basic-addon1" >经度</span>
+          <input type="text" class="form-control" placeholder="longtitude" aria-describedby="basic-addon1" id="epilelongi"  ng-blur="testlongitude()">
+        </div>
+        <span  id="basic-addon1" ng-if="expend" style="display: block;color:red">只能输入数字</span>
+        <div class="input-group" style="margin-top: 30px">
+          <span class="input-group-addon" id="basic-addon1" >纬度</span>
+          <input type="text" class="form-control" placeholder="latitude" aria-describedby="basic-addon1" id="epilelati" ng-blur="testlatitude()">
+        </div>
+        <span  id="basic-addon1" ng-if="expendlatitude" style="display: block;color:red">只能输入数字</span>
+        <div class="input-group" style="margin-top: 30px">
+          <span class="input-group-addon" id="basic-addon1" >上次维护时间</span>
+          <input class="form-control" id="myDatepickerInput1" type="text" style="width: 100%;height: 30px;padding-left: 0px;padding-right: 0px" / >
+        </div>
+        <div class="input-group" style="margin-top: 30px">
+          <span class="input-group-addon" id="basic-addon1" >下次维护时间</span>
+          <input class="form-control" id="myDatepickerInput2" type="text" style="width: 100%;height: 30px;padding-left: 0px;padding-right: 0px" />
+        </div>
+        <div class="form-group" style="margin-top: 20px;margin-bottom: 20px">
+          <label class="col-sm-3 control-label">是否支持预约:</label>
+          <div class="col-sm-7">
+              <toggle-switch ng-model="switchStatus" on-label="是" off-label="否"><toggle-switch>
+          </div>
+        </div>
+        <div class="form-group" style="margin-top: 20px;margin-bottom: 20px">
+          <label class="col-sm-3 control-label">是否可用:</label>
+          <div class="col-sm-7">
+              <toggle-switch ng-model="switchStatus1" on-label="是" off-label="否"><toggle-switch>
+          </div>
+        </div>
+        
+       <div class="form-group" style="margin-top: 20px;margin-bottom: 20px">
+          <label class="col-sm-3 control-label">是否合格:</label>
+          <div class="col-sm-7">
+              <toggle-switch ng-model="switchStatus2" on-label="是" off-label="否"><toggle-switch>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" ng-disabled="falsenumber == 0" ng-click="submitedit()">提交</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal  fade " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id="pileopenmodal">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">设置电桩开放时间</h4>
+      </div>
+      <div class="modal-body">
+       <div>
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="fa fa-beer" style="color:red"></i>
+            <span class="bi-nav-font" translate="aside.nav.DASHBOARD" id="pilename"></span>
+       </div>
+       <div style="margin-top: 10px">
+            <span class="bi-nav-font" translate="aside.nav.DASHBOARD" id="pileaddress"></span>
+       </div>
+       <div style="border-top:1px solid grey ;width: 100%;padding: 10px">
+            <i class="fa fa-power-off" style="color:red"></i>
+            <span class="bi-nav-font" translate="aside.nav.DASHBOARD" id="pilename">充电桩开放和结束时间</span>
+       </div>
+        <div style="width: 100%;padding: 10px">
+            <i class="fa fa-power-off" style="color:red;margin-left: 20%"></i>
+            <span class="bi-nav-font" translate="aside.nav.DASHBOARD" id="pilename" style="margin-left: 5%">开放时间</span>
+            <select style="margin-left: 20%" style="height:10px" id="select1">
+              <option value="">00</option>
+              <option value="">01</option>
+              <option value="">02</option>
+              <option value="">03</option>
+              <option value="">04</option>
+              <option value="">05</option>
+              <option value="">06</option>
+              <option value="">07</option>
+              <option value="">08</option>
+              <option value="">09</option>
+              <option value="">10</option>
+              <option value="">11</option>
+              <option value="">12</option>
+              <option value="">13</option>
+              <option value="">14</option>
+              <option value="">15</option>
+              <option value="">16</option>
+              <option value="">17</option>
+              <option value="">18</option>
+              <option value="">19</option>
+              <option value="">20</option>
+              <option value="">21</option>
+              <option value="">22</option>
+              <option value="">23</option>
+            </select>时
+             <select  id="select2">
+              <option value="">00</option>
+              <option value="">01</option>
+              <option value="">02</option>
+              <option value="">03</option>
+              <option value="">04</option>
+              <option value="">05</option>
+              <option value="">06</option>
+              <option value="">07</option>
+              <option value="">08</option>
+              <option value="">09</option>
+              <option value="">10</option>
+              <option value="">11</option>
+              <option value="">12</option>
+              <option value="">13</option>
+              <option value="">14</option>
+              <option value="">15</option>
+              <option value="">16</option>
+              <option value="">17</option>
+              <option value="">18</option>
+              <option value="">19</option>
+              <option value="">20</option>
+              <option value="">21</option>
+              <option value="">22</option>
+              <option value="">23</option>
+            </select>分
+       </div>
+       <div style="border-bottom:1px solid grey ;width: 100%;padding: 10px">
+            <i class="fa fa-power-off" style="color:red;margin-left: 20%"></i>
+            <span class="bi-nav-font" translate="aside.nav.DASHBOARD" id="pilename" style="margin-left: 5%">结束时间</span>
+            <select style="margin-left: 20%" style="height:10px" id="select3">
+              <option value="">00</option>
+              <option value="">01</option>
+              <option value="">02</option>
+              <option value="">03</option>
+              <option value="">04</option>
+              <option value="">05</option>
+              <option value="">06</option>
+              <option value="">07</option>
+              <option value="">08</option>
+              <option value="">09</option>
+              <option value="">10</option>
+              <option value="">11</option>
+              <option value="">12</option>
+              <option value="">13</option>
+              <option value="">14</option>
+              <option value="">15</option>
+              <option value="">16</option>
+              <option value="">17</option>
+              <option value="">18</option>
+              <option value="">19</option>
+              <option value="">20</option>
+              <option value="">21</option>
+              <option value="">22</option>
+              <option value="">23</option>
+            </select>时
+             <select  id="select4">
+              <option value="">00</option>
+              <option value="">01</option>
+              <option value="">02</option>
+              <option value="">03</option>
+              <option value="">04</option>
+              <option value="">05</option>
+              <option value="">06</option>
+              <option value="">07</option>
+              <option value="">08</option>
+              <option value="">09</option>
+              <option value="">10</option>
+              <option value="">11</option>
+              <option value="">12</option>
+              <option value="">13</option>
+              <option value="">14</option>
+              <option value="">15</option>
+              <option value="">16</option>
+              <option value="">17</option>
+              <option value="">18</option>
+              <option value="">19</option>
+              <option value="">20</option>
+              <option value="">21</option>
+              <option value="">22</option>
+              <option value="">23</option>
+            </select>分
+       </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" ng-click="startpile()">确认</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal  fade " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id="deletepilerelationmodal">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">解除充电桩与商家关系</h4>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">电桩ID</span>
+          <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" id="delepileid" disabled>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" ng-click="deletePile()">确定删除</button>
+      </div>
+    </div>
+  </div>
+</div>

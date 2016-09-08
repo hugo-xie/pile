@@ -1,0 +1,268 @@
+<div style="width: 80%;margin:auto;margin-top: 60px">
+  <h3>设备基本信息</h3>
+  <form class="form-horizontal">
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">参数配置版本</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="indexnumber"  placeholder="请输入参数配置版本号" ng-model="indexnumber">
+    </div>
+  </div>
+  <span  id="basic-addon1" ng-if="expendid" style="display: block;color:red;margin-left:18%;">只能输入数字</span>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">通信方式</label>
+    <div class="col-sm-2">
+      <div class="checkbox">
+        <label>
+          <input type="radio"  name="Communication" value="0" > 本地
+        </label>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="checkbox">
+        <label>
+          <input type="radio" name="Communication" value="1"> GPRS
+        </label>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="checkbox">
+        <label>
+          <input type="radio" name="Communication" value="2"> WIFI
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">PM25配置状态</label>
+    <div class="col-sm-2">
+      <div class="checkbox">
+        <label>
+          <input type="radio" name="pm" value="0"> 是
+        </label>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="checkbox">
+        <label>
+          <input type="radio" name="pm" value="1"> 否
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">屏幕配置情况</label>
+    <div class="col-sm-2">
+      <div class="checkbox">
+        <label>
+          <input type="radio" name="screen" value="0"> 是
+        </label>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="checkbox">
+        <label>
+          <input type="radio" name="screen" value="1"> 否
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">语音配置情况</label>
+    <div class="col-sm-2">
+      <div class="checkbox">
+        <label>
+          <input type="radio" name="language" value="0"> 是
+        </label>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="checkbox">
+        <label>
+          <input type="radio" name="language" value="1"> 否
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">灯板配置情况</label>
+      <div class="col-sm-2">
+      <div class="checkbox">
+        <label>
+          <input type="radio" name="light" value="0"> 是
+        </label>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="checkbox">
+        <label>
+          <input type="radio" name="light" value="1"> 否
+        </label>
+      </div>
+    </div>
+  </div>
+  
+</form>
+</div>
+<div style="width: 80%;margin:auto;">
+  <h3>设备时间</h3>
+  <form class="form-horizontal">
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">时间</label>
+    <div class="col-sm-8">
+      <input class="form-control" id="myDatepickerInput1" type="text" style="width: 100%;height: 30px;padding-left: 0px;padding-right: 0px" ng-model="myDatepickerInput1"/>
+    </div>
+  </div>
+</form>
+</div>
+
+<div style="width: 80%;margin:auto;">
+  <h3>电表ID</h3>
+  <form class="form-horizontal">
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">电表ID</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="inputPassword3" ng-blur="testeid()" placeholder="请输入电表ID" ng-model="inputPassword3">
+    </div>
+  </div>
+</form>
+</div>
+<!-- <span  id="basic-addon1" ng-if="expendeid" style="display: block;color:red;margin-left:18%;">只能输入数字</span> -->
+<div style="width: 80%;margin:auto;">
+  <h3>CP阈值</h3>
+  <form class="form-horizontal">
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">6V阈值</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="input6v" ng-blur="test6v()" placeholder="请输入阈值" ng-model="input6v">
+    </div>
+  </div>
+  <span  id="basic-addon1" ng-if="expende6v" style="display: block;color:red;margin-left:18%;">只能输入数字</span>
+    <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">9V阈值</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="input9v" ng-blur="test9v()" placeholder="请输入阈值" ng-model="input9v">
+    </div>
+  </div>
+  <span  id="basic-addon1" ng-if="expende9v" style="display: block;color:red;margin-left:18%;">只能输入数字</span>
+     <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">12V阈值</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="input12v" ng-blur="test12v()" placeholder="请输入阈值" ng-model="input12v">
+    </div>
+  </div>
+  <span  id="basic-addon1" ng-if="expende12v" style="display: block;color:red;margin-left:18%;">只能输入数字</span>
+</form>
+</div>
+<div style="width: 80%;margin:auto;">
+  <h3>故障检测阈值</h3>
+  <form class="form-horizontal">
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">电压监测阈值</label>
+    <div class="input-group col-sm-8" style="margin-left: 10px">
+      <input type="text" class="form-control"  aria-describedby="basic-addon2" placeholder="请输入阈值" id="voltage" ng-model="voltage">
+      <span class="input-group-addon" id="basic-addon2">V</span>
+    </div>
+  </div>
+    <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">电流检测阈值</label>
+    <div class="input-group col-sm-8">
+      <input type="text" class="form-control"  aria-describedby="basic-addon2" placeholder="请输入阈值" id="current" ng-model="current">
+      <span class="input-group-addon" id="basic-addon2">A</span>
+   </div>
+  </div>
+     <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">温度检测阈值</label>
+    <div class="input-group col-sm-8">
+      <input type="text" class="form-control"  aria-describedby="basic-addon2" placeholder="请输入阈值" id="temperature" ng-model="temperature">
+      <span class="input-group-addon" id="basic-addon2">℃</span>
+   </div>
+  </div>
+</form>
+</div>
+
+<div style="width: 80%;margin:auto;">
+  <h3>充电参数</h3>
+  <form class="form-horizontal">
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">单次最大充电量</label>
+    <div class="input-group col-sm-8">
+      <input type="text" class="form-control"  aria-describedby="basic-addon2"   placeholder="请输入充电量" id="maxcurrent" ng-model="maxcurrent">
+      <span class="input-group-addon" id="basic-addon2">度</span>
+   </div>
+  </div>
+    <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">单次最大充电时间</label>
+    <div class="input-group col-sm-8">
+      <input type="text" class="form-control"  aria-describedby="basic-addon2" placeholder="请输入最大充电时间" id="maxtime" ng-model="maxtime">
+      <span class="input-group-addon" id="basic-addon2">小时</span>
+   </div>
+  </div>
+</form>
+</div>
+
+
+<div style="width: 80%;margin:auto;">
+  <h3>桩类型</h3>
+  <form class="form-horizontal">
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">通用电价</label>
+    <div class="input-group col-sm-8">
+      <input type="text" class="form-control"  aria-describedby="basic-addon2" placeholder="请输入电价" id="commoneprice" ng-model="commoneprice">
+      <span class="input-group-addon" id="basic-addon2">元／度</span>
+   </div>
+  </div>
+    <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">阶梯电价</label>
+    <div class="input-group col-sm-8">
+      <input type="text" class="form-control"  aria-describedby="basic-addon2" placeholder="请输入电价" id="multistepprice" ng-model="multistepprice">
+      <span class="input-group-addon" id="basic-addon2">元／度</span>
+   </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">价格1开始时间</label>
+    <div class="input-group col-sm-8">
+
+      <input type="text" class="form-control"  aria-describedby="basic-addon2" placeholder="请输入开始时间" id="price1starttime" ng-model="price1starttime">
+      
+   </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">价格1结束时间</label>
+      <div class="input-group col-sm-8">
+      <input type="text" class="form-control"  aria-describedby="basic-addon2" placeholder="请输入结束时间" id="price1endtime" ng-model="price1endtime">
+   </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">阶梯电价2</label>
+    <div class="input-group col-sm-8">
+      <input type="text" class="form-control"  aria-describedby="basic-addon2" placeholder="请输入电价" id="multistep2price" ng-model="multistep2price">
+      <span class="input-group-addon" id="basic-addon2">元／度</span>
+   </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">价格2开始时间</label>
+      <div class="input-group col-sm-8">
+      <input type="text" class="form-control"  aria-describedby="basic-addon2" placeholder="请输入开始时间" id="price2starttime" ng-model="price2starttime">
+   </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">价格2结束时间</label>
+      <div class="input-group col-sm-8">
+      <input type="text" class="form-control"  aria-describedby="basic-addon2" placeholder="请输入结束时间" id="price2endtime" ng-model="price2endtime">
+   </div>
+  </div>
+  
+  <div class="form-group" style="margin-left:60%;">
+    
+      <div class="input-group col-sm-7">
+       
+   </div>
+  </div>
+      <input class="btn btn-success" value="返回上一页" style="margin-left: 63%" type="button" ui-sref="app.indextable"></input>
+      <input type="button" class="btn btn-success" value="配置参数提交" ng-click="submitparameter()" ng-disabled="myDatepickerInput1 == null || input6v == null || inputPassword3 == null || input9v == null || input12v == null
+       || voltage == null || current == null || temperature == null || maxcurrent == null || maxtime == null || commoneprice == null || multistepprice == null || price1starttime == null || price1endtime == null || multistep2price
+        == null || price2starttime == null || price2endtime == null" >
+</form>
+</div>
+
+

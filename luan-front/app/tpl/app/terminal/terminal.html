@@ -1,0 +1,232 @@
+<style type="text/css">
+  .gridStyleter {
+    border: 1px solid rgb(212,212,212);
+    width: 99%; 
+    height: 400px;
+}
+.modal-backdrop{
+z-index: 2;}
+</style>
+
+<div style="margin-top: 60px">
+<div class="panel panel-default" style="width: 90%;margin:auto;height: 700px">
+  <div class="panel-heading">终端升级列表</div>
+  <div class="panel-body">
+        <div id="toolbar">
+            <button id="remove" class="btn btn-info"  ng-click="chooseupdate()" ng-disabled="mySelections.length==0">
+                <i class="glyphicon glyphicon-flash"></i> 选择版本升级
+            </button>
+            <button id="remove" class="btn btn-danger"  ng-click="choosedelete()" ng-disabled="mySelections.length==0">
+                <i class="glyphicon glyphicon-remove"></i> 删除固件
+            </button>
+            <button id="remove" class="btn btn-danger"  ng-click="choosedsubmit()" >
+                <i class="glyphicon glyphicon-arrow-up"></i> 上传文件
+            </button>
+            <button id="remove" class="btn btn-success"  ng-click="refreshlist()" >
+                <i class="glyphicon glyphicon-refresh"></i> 刷新列表
+            </button>
+        </div>
+    <div class="gridStyleter" ng-grid="gridOptions" style="margin-top: 20px"></div>
+  </div>
+</div>
+</div>
+
+
+<div class="modal  fade " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id="updatemodal">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">当前所选版本</h4>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">Version</span>
+          <input type="text" class="form-control" placeholder="version" aria-describedby="basic-addon1" id="updateversion">
+        </div>
+        <div class="input-group" style="margin-top: 30px">
+          <span class="input-group-addon" id="basic-addon1" >Base</span>
+          <input type="text" class="form-control" placeholder="base" aria-describedby="basic-addon1" id="updatebase">
+        </div>
+       <div class="input-group" style="margin-top: 30px">
+          <span class="input-group-addon" id="basic-addon1" >Hexfile</span>
+          <input type="text" class="form-control" placeholder="hexfile" aria-describedby="basic-addon1" id="updatehexfile">
+        </div>
+        <!-- <div class="input-group" style="margin-top: 30px">
+          <span class="input-group-addon" id="basic-addon1" >Hex file MD5</span>
+          <input type="text" class="form-control" placeholder="hexmd5" aria-describedby="basic-addon1" id="updatehexmd5">
+        </div> -->
+        <div class="input-group" style="margin-top: 30px">
+          <span class="input-group-addon" id="basic-addon1" >Binary Base64 MD5</span>
+          <input type="text" class="form-control" placeholder="base64" aria-describedby="basic-addon1" id="updatebase64">
+        </div>
+        <div class="checkbox" style="margin-left: 2%">
+        <label>
+        <input type="checkbox"  ng-model="upall" ng-click="test()"> 升级全部
+      </label>
+      <label>
+        <input type="checkbox" ng-model="updetail" ng-click="choosedetail()"> 升级具体
+      </label>
+      <!-- <div>
+        <span style="color:rgb(4,121,191);font-size: 3px">注:不选择升级全部和指定升级的时，将按照程序版本号指定升级</span>
+      </div> -->
+      </div>
+      <div class="form-group" style="margin-left: 2%" ng-if="upid">
+      <label for="exampleInputEmail1">充电桩ID</label>
+      <input type="text" class="form-control" id="exampleInputEmail1" placeholder="请输入充电桩ID" style="width: 50%">
+    </div>
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary"  ng-click="updateterminal()">升级</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal  fade " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id="deletemodal">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">当前所选版本</h4>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">Version</span>
+          <input type="text" class="form-control" placeholder="version" aria-describedby="basic-addon1" id="deleteversion">
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" ng-click="deleteterminal()">删除</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal  fade " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id="submitmodal">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">上传文件</h4>
+      </div>
+      <div class="modal-body" ng-controller="pileapplicationController">
+        <div style="display: flex;flex-direction: row;justify-content: center;align-items: center;width: 100%;">
+  <div style="width: 100%;background-color: rgba(230,219,116,.8);padding:20px">
+  <form style="width: 100%;margin:auto;">
+    
+    <div class="checkbox" style="margin-left: 30%">
+     <!--  <label>
+        <input type="checkbox"  ng-model="upall" ng-click="test()"> 升级全部
+      </label>
+      <label>
+        <input type="checkbox" ng-model="updetail" ng-click="choosedetail()"> 升级具体
+      </label>
+      <div>
+        <span style="color:rgb(4,121,191);font-size: 3px">注:不选择升级全部和指定升级的时，将按照程序版本号指定升级</span>
+      </div> -->
+    </div>
+    <!-- <div class="form-group" style="margin-left: 30%" ng-if="upid">
+      <label for="exampleInputEmail1">充电桩ID</label>
+      <input type="text" class="form-control" id="exampleInputEmail1" placeholder="请输入充电桩ID" style="width: 50%">
+    </div> -->
+    <!-- <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    </div> -->
+    
+    <div style="margin-left: 30%">
+    <div class="alert alert-danger" role="alert" id="alertBox" hidden="true">
+      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+      <span class="sr-only">Error:</span>
+      <span id="errorMessage"></span>
+    </div>
+
+    <div class="alert alert-success" role="alert" id="infoBox">
+      <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+      <span class="sr-only">File uploaded!</span>
+      <span id="successMessage"></span>
+    </div>
+
+    <div class="row">
+        <div class="col-md-5">
+          <label for="filePicker">选择hex文件上传:</label><br>
+          <input type="file" id="filePicker" style="outline: none;">
+        </div>
+    </div>
+    <br>
+
+    <div class="row" id="basicInfo" hidden="true">
+        <div class="col-md-5">
+            <h4>
+                Application Information
+            </h4>
+            <table class="table ">
+                <tbody>
+                    <tr>
+                        <td style="padding:0px;font-size: 1%">Version</td>
+                        <td><code id="imageVersion">0x00</code></td>
+                    </tr>
+                    <tr>
+                        <td style="padding:0px;font-size: 1%">Base Address</td>
+                        <label>Base Address</label>
+                        <td><code id="imageBase">0x00</code></td>
+                    </tr>
+                    <tr>
+                        <td style="padding:0px;font-size: 1%">Binary Size</td>
+                        <td><code id="imageBinarySize">0</code></td>
+                    </tr>
+                    <tr>
+                        <td style="padding:0px;font-size: 1%">MD5 Checksum (HEX file)</td>
+                        <td><code id="imageMd5">0x00</code></td>
+                    </tr>
+                    <tr>
+                        <td style="padding:0px;font-size: 1%" >MD5 Checksum (Binary data)</td>
+                        <td><code id="imageBinaryMd5">0x00</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" id="progressBar"
+              aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: 1%;">
+                <span>1%</span>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" id="buttons" hidden="true" style="padding:5px">
+        <div class="col-md-5">
+            <div class="pull-right">
+                <button id="btnReset" type="button" class="btn btn-default" onclick="reset();">Reset</button> 
+                <button id="btnCancel" type="button" class="btn btn-danger" onclick="cancel();">Cancel</button>
+                <button id="btnUpload" type="button" class="btn btn-primary" ng-click="upload();">Upload</button>
+            </div>
+        </div>
+    </div>
+ 
+    <!-- <div>
+        <h1>Base64 encoded version</h1>
+        <textarea id="base64textarea" placeholder="Base64 will appear here" cols="50" rows="15"></textarea>
+        </div> -->
+</div>
+    <!-- <button type="submit" class="btn btn-success" style="width: 20%;margin-left: 30%">上传</button> -->
+  </form>
+ </div>
+</div>
+
+        
+      </div>
+      
+    </div>
+  </div>
+</div>

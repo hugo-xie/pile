@@ -1,0 +1,172 @@
+<style type="text/css">
+    .gridStyle3 {
+    border: 1px solid rgb(212,212,212);
+    width: 99.5%; 
+    height: 300px;
+    margin:auto;
+    margin-top: 20px;
+    }
+    .modal-backdrop{
+z-index: 10;}
+</style>
+
+<div class="panel panel-default" style="width: 90%;margin:auto;margin-top: 50px;height: 700px">
+  <div class="panel-heading" style="background-color: rgb(40,84,133);color:white">用户举报信息</div>
+  <div class="panel-body" >
+  <div class="row">
+   <div class="col-md-2" style="margin-left: 15px">
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1" style="font-size: 5px">开始时间</span>
+      <input class="form-control" id="myDatepickerInput1" type="text" style="width: 150%;height: 30px;padding-left: 0px;padding-right: 0px" />
+      <div class="input-group-btn">
+    
+    </div>
+   </div>
+  </div>
+  <div class="col-md-2" style="margin-left: 4%">
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1" style="font-size: 5px">结束时间</span>
+      <input class="form-control" id="myDatepickerInput2" type="text" style="width: 150%;height: 30px;padding-left: 0px;padding-right: 0px"/>
+      <div class="input-group-btn">
+    
+    </div>
+   </div>
+  </div>
+  <div class="col-md-2" style="margin-left: 4%">
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1">举报信息ID</span>
+      <input type="text" class="form-control" placeholder="举报信息ID" aria-describedby="basic-addon1" id="bookid" ng-model="seacherid" style="width: 150%;height: 30px">
+    </div>
+  </div>
+  
+  <div class="col-md-2" style="margin-left: 5%">
+    <div class="input-group">
+      <button type="button" class="btn btn-success btn-sm" ng-click="seach()" >开始搜索</button>
+    </div>
+  </div>
+    <div class="col-md-12" style="margin-top: 10px">
+        <div class="container" style="width: 100%" > 
+        <div id="toolbar">
+            <button id="remove" class="btn btn-danger"  ng-click="deelreport()" ng-disabled="mySelections.length==0">
+                <i class="glyphicon glyphicon-wrench"></i> 举报处理
+            </button>
+            <!-- <button id="remove" class="btn btn-danger"  ng-click="submitreport()" ng-disabled="mySelections.length==0">
+                <i class="glyphicon glyphicon-wrench"></i> 举报提交
+            </button> -->
+        </div>
+        <div class="gridStyle3" ng-grid="gridOptions"></div>
+      
+      </div>
+    </div>
+<!--     
+    <div class="col-md-2" style="border-left: 1px dashed black;height: 650px;display: flex;flex-direction: column;align-items: center;">
+     <span>检索</span>
+      <div class="input-group" style="width:100%;margin-top: 20px">
+        <span class="input-group-addon" id="basic-addon1">电桩id</span>
+        <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+      </div>
+       <div class="input-group" style="width:100%;margin-top: 20px">
+        <span class="input-group-addon" id="basic-addon1" ng-model="name">商家姓名</span>
+        <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" >
+      </div>
+       <div class="input-group" style="width:100%;margin-top: 20px">
+        <span class="input-group-addon" id="basic-addon1">商家电话</span>
+        <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+      </div>
+      <input type="button" class="btn-info" value="开始搜索" style="outline: none;border:0px;width: 100%;margin-top: 20px" onclick="test()"></input>
+      <input type="button" class="btn-info" value="举报商家" style="outline: none;border:0px;width: 100%;margin-top: 20px" ng-click="accusation()"></input>
+    </div> 
+-->
+</div>
+  </div>
+</div>
+
+<div class="modal  fade " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id="accusationmodal" >
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">处理举报</h4>
+      </div>
+      <div class="modal-body">
+        <div class="input-group" style="margin-top: 10px">
+          <span class="input-group-addon" id="basic-addon1">被举报者车牌号</span>
+          <input type="text" class="form-control"  aria-describedby="basic-addon1" id="test1" ng-model="repoter.plate" > 
+        </div>
+        <div class="input-group" style="margin-top: 10px">
+          <span class="input-group-addon" id="basic-addon1">举报信息编号</span>
+          <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" id="repotid" disabled>
+        </div>
+        <div class="input-group" style="margin-top: 10px">
+          <span class="input-group-addon" id="basic-addon1">举报时间</span>
+          <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" id="repotertime" disabled>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+           
+            
+              <div class="input-group" style="margin-top: 10px">
+              <span class="input-group-addon" id="basic-addon1">被举报用户扣除分数</span>
+              <input type="number" class="form-control" placeholder="score" aria-describedby="basic-addon1" id="deletescore" ng-model="deletescore" min="0">
+              </div>
+            
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-6" style="padding-left: 0px;">
+              <div class="input-group" style="margin-top: 10px">
+              <span class="input-group-addon" id="basic-addon1">举报用户ID</span>
+              <input type="text" class="form-control" placeholder="举报用户ID" aria-describedby="basic-addon1" id="reporterid" disabled>
+              </div>
+            </div>
+            <div class="col-md-6" style="padding-right: 0px;">
+              <div class="input-group" style="margin-top: 10px">
+              <span class="input-group-addon" id="basic-addon1">奖励分数</span>
+              <input type="number" class="form-control" placeholder="score" aria-describedby="basic-addon1" id="plusscore" ng-model="plusscore" min="0">
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <textarea name="" id="problemdetail" cols="78" rows="7.5" placeholder="处理意见" style="margin-top: 10px"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" ng-click="submitreport()">确认处理</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal  fade " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id="submitermodal" >
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">举报人相关信息</h4>
+      </div>
+      <div class="modal-body">
+        <div class="input-group" style="margin-top: 10px">
+          <span class="input-group-addon" id="basic-addon1">举报者ID</span>
+          <input type="text" class="form-control"  aria-describedby="basic-addon1" id="test1" ng-model="test1" disabled> 
+        </div>
+        <div class="input-group" style="margin-top: 10px">
+          <span class="input-group-addon" id="basic-addon1">举报信息编号</span>
+          <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" id="test2" disabled>
+        </div>
+        <div class="input-group" style="margin-top: 10px">
+          <span class="input-group-addon" id="basic-addon1">举报时间</span>
+          <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" id="test3" disabled>
+        </div>
+        <div class="input-group" style="margin-top: 10px">
+          <span class="input-group-addon" id="basic-addon1">奖励积分</span>
+          <input type="number" class="form-control" placeholder="score" aria-describedby="basic-addon1" id="test3" >
+        </div>
+        <textarea name="" id="problemdetail" cols="78" rows="7.5" placeholder="处理意见" style="margin-top: 10px"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" ng-click="problem()">确认处理</button>
+      </div>
+    </div>
+  </div>
+</div>

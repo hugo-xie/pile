@@ -1,0 +1,164 @@
+<div style="width: 100%;display: flex;display: -webkit-flex;flex-direction: row;justify-content: center;margin-top: 60px">
+  <div class="small-box bg-aqua" style="width: 25%;margin-right: 10px;margin-top: 20px">
+            <div class="inner">
+              <h3>150</h3>
+
+              <p>活跃人数</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-shopping-cart"></i>
+            </div>
+            <a href="/#/app/upload#c1" class="small-box-footer">
+              更多详情 <i class="fa fa-arrow-circle-right"></i>
+            </a>
+  </div>
+  <div class="small-box bg-green" style="width: 25%;margin-right: 10px;margin-top: 20px">
+            <div class="inner">
+              <h3>53<sup style="font-size: 20px">%</sup></h3>
+
+              <p>电桩使用率</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-bar-chart"></i>
+            </div>
+            <a href="/#/app/upload#c3" class="small-box-footer">
+              更多详情 <i class="fa fa-arrow-circle-right"></i>
+            </a>
+  </div>
+  <div class="small-box bg-yellow" style="width: 25%;margin-right: 10px;margin-top: 20px">
+            <div class="inner">
+              <h3>44</h3>
+
+              <p>活跃电桩数</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-child"></i>
+            </div>
+            <a href="/#/app/upload#c2" class="small-box-footer">
+             更多详情  <i class="fa fa-arrow-circle-right"></i>
+            </a>
+  </div>
+</div>
+
+
+<a name="c1" id="c1"></a>
+<div class="panel panel-default" style="width: 78%;margin:auto;margin-top: 20px" >
+  <div class="panel-heading">大数据统计－月活跃用户数量</div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-9">
+        <highchart   id="chart1" config="userChart"  style="margin-left:15px"></highchart>
+      </div>
+      <div class="col-md-3" style="border-left: 1px solid black;height:400px">
+       <div style="width: 100%;height: 150px;background-color: rgb(23,151,190);border-radius: 15px">
+             <div ng-init = "d3_3 = [60,40]" ui-jq = "sparkline" ui-options = "[60,40], {type:'pie', height:40, sliceColors:['#fad733','#fff']}" class = "sparkline inline yearGdpIntroI" style="margin-left: 10px">
+              <i class = "fa fa-area-chart fa-4x" style="color:white"></i>
+              </div>
+              <div style="color:white;margin-left: 90px" >
+                 <dl>
+                     <dt>最大月活跃人数</dt>
+                     <dd style="margin-left: 10%;font-size: 1.5em">300人</dd>
+                 </dl>
+             </div>
+        </div>
+        <div style="margin-top: 20px">
+          <article class = "media cgq_contentwidth">
+              <div class = "pull-left">
+                  <span class = "fa-stack fa-lg">
+                      <i class = "fa fa-circle fa-stack-2x text-info"></i>
+                      <i class = "icon-bulb fa-stack-1x text-white fa-spin icon-bulb-position"></i>
+                  </span>
+                  <span class = "h4">分析</span>
+              </div>
+              <span class = "glyphicon glyphicon-list-alt year_gdp_oneword" aria-hidden = "true" style="width: 100%">
+                  活跃人数持续增长
+              </span>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a name="c3" id="c3"></a>
+<div class="panel panel-default" style="width: 78%;margin:auto;margin-top: 20px" >
+  <div class="panel-heading">大数据统计－月活跃电桩数量</div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-9">
+        <highchart   id="chart1" config="activatePileChart"  style="margin-left:15px"></highchart>
+      </div>
+      <div class="col-md-3" style="border-left: 1px solid black;height:400px">
+       <div style="width: 100%;height: 150px;background-color: rgb(23,151,190);border-radius: 15px">
+             <div ng-init = "d3_3 = [60,40]" ui-jq = "sparkline" ui-options = "[60,40], {type:'pie', height:40, sliceColors:['#fad733','#fff']}" class = "sparkline inline yearGdpIntroI" style="margin-left: 10px">
+              <i class = "fa fa-area-chart fa-4x" style="color:white"></i>
+              </div>
+              <div style="color:white;margin-left: 90px" >
+                 <dl>
+                     <dt>最大月活跃电桩数量</dt>
+                     <dd style="margin-left: 10%;font-size: 1.5em">450个</dd>
+                 </dl>
+             </div>
+        </div>
+        <div style="margin-top: 20px">
+          <article class = "media cgq_contentwidth">
+              <div class = "pull-left">
+                  <span class = "fa-stack fa-lg">
+                      <i class = "fa fa-circle fa-stack-2x text-info"></i>
+                      <i class = "icon-bulb fa-stack-1x text-white fa-spin icon-bulb-position"></i>
+                  </span>
+                  <span class = "h4">分析</span>
+              </div>
+              <span class = "glyphicon glyphicon-list-alt year_gdp_oneword" aria-hidden = "true" style="width: 100%">
+                  活跃人数持续增长
+              </span>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<a name="c2" id="c2"></a>
+<div class="panel panel-default" style="width: 78%;margin:auto;margin-top: 60px" >
+  <div class="panel-heading">大数据统计－每月电桩数量</div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-9">
+        <highchart   id="chart1" config="pileChart"  style="margin-left:15px"></highchart>
+      </div>
+            <div class="col-md-3" style="border-left: 1px solid black;height:400px">
+       <div style="width: 100%;height: 150px;background-color: rgb(23,151,190);border-radius: 15px">
+             <div ng-init = "d3_3 = [60,40]" ui-jq = "sparkline" ui-options = "[60,40], {type:'pie', height:40, sliceColors:['#fad733','#fff']}" class = "sparkline inline yearGdpIntroI" style="margin-left: 10px">
+              <i class = "fa fa-area-chart fa-4x" style="color:white"></i>
+              </div>
+              <div style="color:white;margin-left: 90px" >
+                 <dl>
+                     <dt>最大月活跃电桩数</dt>
+                     <dd style="margin-left: 10%;font-size: 1.5em">270</dd>
+                 </dl>
+             </div>
+        </div>
+        <div style="margin-top: 20px">
+          <article class = "media cgq_contentwidth">
+                        <div class = "pull-left">
+                            <span class = "fa-stack fa-lg">
+                                <i class = "fa fa-circle fa-stack-2x text-info"></i>
+                                <i class = "icon-bulb fa-stack-1x text-white fa-spin icon-bulb-position"></i>
+                            </span>
+                            <span class = "h4">分析</span>
+                        </div>
+                        <span class = "glyphicon glyphicon-list-alt year_gdp_oneword" aria-hidden = "true" style="width: 100%">
+                            活跃电桩数稳定持续增长
+                        </span>
+                    </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

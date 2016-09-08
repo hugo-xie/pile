@@ -1,0 +1,8 @@
+步骤一：本机安装nodejs (v5.10.1)地址：https://nodejs.org/en/
+
+步骤二：在全局环境安装bower 
+  $ npm install -g bower
+
+步骤三： 在前端根目录执行 npm install
+
+步骤四： 在前端根目录执行 bower install

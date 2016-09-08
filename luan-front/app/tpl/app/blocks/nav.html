@@ -1,0 +1,139 @@
+<!-- list -->
+<script type="text/javascript">
+    app.controller('navcontroller', ['$scope','$stateParams','ResTool','SweetAlert', function($scope,$stateParams,ResTool,SweetAlert){
+        $scope.secondnav=false;
+        $scope.secondnavclick = function(){
+            $scope.secondnav = !$scope.secondnav;
+        }
+  }])
+</script>
+<ul class="nav" ng-controller="navcontroller" style="background-color: rgb(17,17,17);height: 700px" >
+    <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+        <span translate="aside.nav.HEADER">查看</span>
+    </li>
+    <li ng-if="isadmin">
+        <a ui-sref="app.user" class="auto">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="glyphicon glyphicon-equalizer icon text-info-dker"></i>
+            <span class="bi-nav-font" translate="aside.nav.DASHBOARD">用户</span>
+        </a>
+    </li>
+    <li>
+        <a ui-sref="app.pile" class="auto">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="glyphicon glyphicon-tree-conifer icon text-info-dker"></i>
+            <span class="bi-nav-font" translate="aside.nav.DASHBOARD">预约管理</span>
+        </a>
+    </li>
+    <li>
+        <a ng-click="secondnavclick()" class="auto">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-down" ng-if="!secondnav"></i>
+                <i class="fa fa-fw fa-angle-up" ng-if="secondnav"></i>
+            </span>
+            <i class="glyphicon glyphicon-object-align-bottom icon text-info-dker"></i>
+            <span class="bi-nav-font" translate="aside.nav.DASHBOARD">电桩管理</span>
+        </a>
+    </li>
+    <li ng-if="secondnav" style="width: 80%;margin-left: 20px;">
+        <a ui-sref="app.report" class="auto">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="fa fa-list-alt icon text-info-dker"></i>
+            <span class="bi-nav-font" translate="aside.nav.DASHBOARD" style="font-size: 10px">电桩导航</span>
+        </a>
+    </li>
+     <li ng-if="secondnav" style="width: 80%;margin-left: 20px;">
+        <a ui-sref="app.pilelist" class="auto" >
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="fa fa-list-alt icon text-info-dker"></i>
+            <span class="bi-nav-font" translate="aside.nav.DASHBOARD" style="font-size: 10px">电桩列表</span>
+        </a>
+    </li>
+    <li ng-if="secondnav" style="width: 80%;margin-left: 20px" >
+        <a ui-sref="app.newpile" class="auto" ng-if="isadmin">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+            </span>
+            <i class="glyphicon glyphicon-object-align-bottom icon text-info-dker"></i>
+            <span class="bi-nav-font" translate="aside.nav.DASHBOARD" style="font-size: 10px">电桩注册</span>
+        </a>
+    </li>
+    <li ng-if="secondnav" style="width: 80%;margin-left: 20px">
+        <a  ui-sref="app.indextable" class="auto" ng-if="isadmin">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+            </span>
+            <i class="glyphicon glyphicon-list-alt icon text-info-dker"></i>
+            <span class="bi-nav-font" translate="aside.nav.DASHBOARD" style="font-size: 10px">参数配置</span>
+        </a>
+    </li>
+     <li>
+        <a ui-sref="app.book" class="auto">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="glyphicon glyphicon-hand-down icon text-info-dker"></i>
+            <span class="bi-nav-font" translate="aside.nav.DASHBOARD">举报管理</span>
+        </a>
+    </li>
+     <li ng-if="isadmin">
+        <a  ui-sref="app.terminal" class="auto">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="glyphicon glyphicon-circle-arrow-up icon text-info-dker"></i>
+            <span class="bi-nav-font" translate="aside.nav.DASHBOARD">终端升级</span>
+        </a>
+    </li>
+     <li ng-if="isadmin">
+        <a ui-sref="app.upload" class="auto" >
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="fa fa-bar-chart icon text-info-dker"></i>
+            <span class="bi-nav-font" translate="aside.nav.DASHBOARD">大数据统计</span>
+        </a>
+    </li>
+<!--      <li>
+        <a ui-sref="app.terminal" class="auto">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="glyphicon glyphicon-sunglasses icon text-info-dker"></i>
+            <span class="bi-nav-font" translate="aside.nav.DASHBOARD">终端状态</span>
+        </a>
+    </li> -->
+    <li>
+    </li>
+    <li class="line dk"></li>
+    <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+        <span translate="aside.nav.HEADER">设置</span>
+    </li>
+    <li>
+        <a href class="auto" ui-sref="app.profile.person">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="glyphicon glyphicon-user text-info-dker"></i>
+            <span class="bi-nav-font" translate="aside.nav.DASHBOARD">用户管理</span>
+        </a>
+    </li>
+</ul>
+<!-- / list -->

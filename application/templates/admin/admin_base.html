@@ -1,0 +1,41 @@
+{% extends 'admin/base.html' %}
+
+{% block page_body %}
+<nav class="navbar navbar-inverse" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#admin-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Home</a>
+    </div>
+    <!-- navbar content -->
+    <div class="collapse navbar-collapse" id="admin-navbar-collapse">
+      <ul class="nav navbar-nav">
+        {{ layout.menu() }}
+      </ul>
+    
+      <ul class="nav navbar-nav navbar-right">
+        {{ layout.menu_links() }}
+      </ul>
+      {% block access_control %}
+      {% endblock %}
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  {% block messages %}
+  {{ layout.messages() }}
+  {% endblock %}
+
+  {# store the jinja2 context for form_rules rendering logic #}
+  {% set render_ctx = h.resolve_ctx() %}
+
+  {% block body %}{% endblock %}
+</div>
+{% endblock %}

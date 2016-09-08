@@ -1,0 +1,20 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm">
+    <div class="col w  dk b-r bg-auto second_nav_gray">
+        <div class="panel no_border" draggable="true">
+            <div class="panel-heading second_nav_head">
+                账号信息
+            </div>
+            <div class="list-group" ng-if="true">
+                <li ui-sref="app.profile.person" class="list-group-item second_nav_body" style="font-size:90%">
+                    <a>账号信息</a>
+                </li>
+                <li ui-sref="app.profile.password" class="list-group-item second_nav_body" style="font-size:90%">
+                    <a>修改密码</a>
+                </li>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div ui-view ></div>
+    </div>
+</div>

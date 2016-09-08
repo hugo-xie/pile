@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+    <script type="text/javascript" src="/static/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="/static/jquery.json.min.js"></script>
+    {% set items = (
+        ('用户名', 'input', 'name', 0),
+        ('手机', 'input', 'mobile', 0),
+        ('昵称', 'input', 'nick', 0),
+        ('车牌号', 'input', 'plate', 0),
+        ('车架号', 'input', 'shell', 0),
+        ('行驶证照片', 'img', 'license', 0),
+        ('邮箱', 'input', 'email', 0),
+        ('头像照片', 'img', 'avatar', 0),
+        ('提交', 'submit', 'submit', 0)
+    ) %}
+    <script>
+        function modify() {
+            $.ajax({
+                type:'post',
+                url:'/v1/user/update',
+                dataType:'json',
+                data:$.toJSON({
+                    token: "{{ token }}",
+                    nick: $("#nick").val(),
+                    email: $("#email").val()
+                }),
+                success:function(data) {
+                    if (data.ret != 0) {
+                        alert(data.ret)
+                        return
+                    }
+                    window.location.href = '/user/{{ token }}'
+                },
+            })
+        }
+        $(document).ready(function() {
+            $.ajaxSetup({contentType: 'application/json'});
+            $("#submit").click(modify)
+            $.ajax({
+                type:'post',
+                url:'/v1/user/info',
+                dataType:'json',
+                data:$.toJSON({
+                    token: "{{ token }}"
+                }),
+                success:function(data) {
+                    if (data.ret != 0) {
+                        alert(data.ret)
+                        return
+                    }
+                    {% for item in items -%}
+                        {% if item[1] == 'input' %}
+                            $("#{{ item[2] }}").val(data.user.{{ item[2] }})
+                        {% elif item[1] == 'img' %}
+                            $("#{{ item[2] }}").attr('src', data.user.{{ item[2] }})
+                        {% endif %}
+                    {%- endfor %}
+                },
+                complete:function() {
+                    $("#loading").hide()
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+{% include "menu.html" %}
+    <table>
+        {% for item in items %}
+            <tr>
+                {% if item[1] == 'input' or item[1] == 'file' %}
+                    {% if item[3] == 1 %}
+                        <td><label>{{ item[0] }} *</label></td>
+                    {% else %}
+                        <td><label>{{ item[0] }}</label></td>
+                    {% endif %}
+                    <td><input type="{{ item[1] }}" name="{{ item[2] }}" id="{{ item[2] }}"/></td>
+                {% elif item[1] == 'submit' %}
+                    <td></td>
+                    <td><input type="{{ item[1] }}" value="{{ item[0] }}" id="{{ item[2] }}"/></td>
+                {% elif item[1] == 'img' %}
+                    <td></td>
+                    <td><img alt="{{ item[0] }}" id="{{ item[2] }}"/></td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+     </table>
+</body>
+</html>

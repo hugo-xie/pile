@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <script type="text/javascript" src="/static/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="/static/jquery.json.min.js"></script>
+    {% set items = (
+        ('用户名', 'input', 'name', 1),
+        ('密码', 'input', 'password', 1),
+        ('提交', 'submit', 'submit', 1)
+    ) %}
+    <script>
+        $(document).ready(function() {
+            $.ajaxSetup({contentType: 'application/json'});
+            $("#submit").click(function(){
+                {% for item in items -%}
+                    {% if item[3] == 1 -%}
+                        if ($("#{{ item[2] }}").val().length == 0) {
+                            alert("需要填写{{ item[0] }}");
+                            return false;
+                        }
+                    {%- endif %}
+                {%- endfor %}
+                $("input").attr("disabled", true)
+                $("#loading").show()
+                $.ajax({
+                    type:'post',
+                    url:'/v1/user/login',
+                    dataType:'json',
+                    data:$.toJSON({
+                        {% for item in items -%}
+                            {% if item[1] == 'input' -%}
+                                {{ item[2] }}: $("#{{ item[2] }}").val(),
+                            {%- endif %}
+                        {%- endfor %}
+                    }),
+                    success:function(data) {
+                        if (data.ret != 0) {
+                            alert(data.ret)
+                            return
+                        }
+                        window.location.href = '/user/' + data.token
+                    },
+                    complete:function() {
+                        $("input").attr("disabled", false)
+                        $("#loading").hide()
+                    }
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+{% include "menu.html" %}
+<table>
+    {% for item in items %}
+        <tr>
+            {% if item[1] == 'input' or item[1] == 'file' %}
+                {% if item[3] == 1 %}
+                    <td><label>{{ item[0] }} *</label></td>
+                {% else %}
+                    <td><label>{{ item[0] }}</label></td>
+                {% endif %}
+                <td><input type="{{ item[1] }}" name="{{ item[2] }}" id="{{ item[2] }}"/></td>
+            {% elif item[1] == 'submit' %}
+                <td></td>
+                <td><input type="{{ item[1] }}" value="{{ item[0] }}" id="{{ item[2] }}"/></td>
+            {% elif item[1] == 'img' %}
+                <td></td>
+                <td><img alt="{{ item[0] }}" id="{{ item[2] }}"/></td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

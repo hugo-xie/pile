@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+    <script type="text/javascript" src="/static/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="/static/jquery.json.min.js"></script>
+    {% set items = (
+        ('左维度', 'input', 'llong', 1),
+        ('右维度', 'input', 'rlong', 1),
+        ('上经度', 'input', 'ulat', 1),
+        ('下经度', 'input', 'blat', 1),
+        ('搜索', 'submit', 'submit', 1)
+    ) %}
+    {% set pile_props = ('id', 'sn', 'name', 'longitude', 'latitude', 'address', 'auto_ack', 'electricity', 'service',
+    'appointment', 'open', 'close', 'owner_id')
+    %}
+    <script>
+        function load_result(data) {
+            $("#result_table").remove()
+            tbl = "<table id='result_table' border='1'><tr><td>ID</td><td>序列号</td><td>名称</td><td>经度</td>" +
+                    "<td>纬度</td><td>地址</td><td>自动确认</td><td>电费</td><td>服务费</td><td>预约费</td>" +
+                    "<td>开始时间</td><td>结束时间</td><td>桩主ID</td></tr></table>"
+            $("#result").append(tbl)
+            $.each(data.piles, function(i, pile) {
+                newRow = '<tr>'
+                {% for prop in pile_props -%}
+                    newRow += '<td>' + pile.{{ prop }} + '</td>'
+                {% endfor %}
+                newRow += '</tr>'
+                $("#result_table tr:last").after(newRow)
+            })
+        }
+        function search() {
+            {% for item in items -%}
+                {% if item[3] == 1 -%}
+                    if ($("#{{ item[2] }}").val().length == 0) {
+                        alert("需要填写{{ item[0] }}");
+                        return false;
+                    }
+                {%- endif %}
+            {%- endfor %}
+            $.ajax({
+                type:'post',
+                url:'/v1/piles/search',
+                dataType:'json',
+                data:$.toJSON({
+                    {% for item in items -%}
+                        {% if item[1] == 'input' -%}
+                            {{ item[2] }}: $("#{{ item[2] }}").val(),
+                        {%- endif %}
+                    {%- endfor %}
+                }),
+                success:function(data) {
+                    if (data.ret != 0) {
+                        alert(data.ret)
+                        return
+                    }
+                    load_result(data)
+                },
+            })
+        }
+        $(document).ready(function() {
+            $.ajaxSetup({contentType: 'application/json'});
+            $("#submit").click(search)
+        })
+    </script>
+</head>
+<body>
+{% include "menu.html" %}
+<table>
+    {% for item in items %}
+        <tr>
+            {% if item[1] == 'input' or item[1] == 'file' %}
+                {% if item[3] == 1 %}
+                    <td><label>{{ item[0] }} *</label></td>
+                {% else %}
+                    <td><label>{{ item[0] }}</label></td>
+                {% endif %}
+                <td><input type="{{ item[1] }}" name="{{ item[2] }}" id="{{ item[2] }}"/></td>
+            {% elif item[1] == 'submit' %}
+                <td></td>
+                <td><input type="{{ item[1] }}" value="{{ item[0] }}" id="{{ item[2] }}"/></td>
+            {% elif item[1] == 'img' %}
+                <td></td>
+                <td><img alt="{{ item[0] }}" id="{{ item[2] }}"/></td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+</table>
+<div id="result"></div>
+</body>
+</html>

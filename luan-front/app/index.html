@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html data-ng-app="luna">
+<head>
+	<meta charset="utf-8">
+	<title>电桩管理</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+	<link rel="stylesheet" href="styles/app.css">
+	<link rel="stylesheet" href="styles/portal.css">
+	<link rel="stylesheet" href="styles/css/tax.css">
+	<link rel="stylesheet" href="styles/css/main.css">
+	<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" href="../bower_components/bootstrap-slider/slider.css"/>
+	<link rel="stylesheet" href="bower_components/sweetalert/dist/sweetalert.css" type="text/css"/>
+	<link rel="stylesheet" href="../bower_components/jquery-ui/themes/smoothness/jquery-ui.css">
+	<link rel="stylesheet" href="../bower_components/angular-loading-bar/src/loading-bar.css">
+	<link rel="stylesheet" href="../bower_components/angularJS-Toaster/toaster.min.css"/>
+	<link rel="stylesheet" href="../bower_components/angular-toggle-switch/angular-toggle-switch.css"/>
+	<link rel="stylesheet" href="../bower_components/ng-grid/ng-grid.css"/>
+	<link rel="stylesheet" href="styles/css/app.min.css"/>
+    <link rel="stylesheet" href="styles/css/bootstrap-table.css">
+    <link rel="stylesheet" href="//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css">
+    <link rel="stylesheet" href="styles/css/examples.css">
+    <link rel="stylesheet" type="text/css" href="../bower_components/remodal/dist/remodal.css">
+    <link rel="stylesheet" type="text/css" href="../bower_components/remodal/dist/remodal-default-theme.css">
+    <link rel="stylesheet" type="text/css" href="styles/css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" href="styles/AdminLTE.css">
+</head>
+<body>
+	<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="../bower_components/angular/angular.js"></script>
+	<script src="../bower_components/angular-resource/angular-resource.js"></script>
+	<script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
+	<script src="../bower_components/angular-animate/angular-animate.js"></script>
+	<script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script src="../bower_components/angular-ui-slider/src/slider.js"></script>
+	<script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+	<script src="../bower_components/angular-ui-validate/dist/validate.js"></script>
+	<script src="../bower_components/angular-strap/dist/angular-strap.min.js"></script>
+	<script src="../bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
+	<script src="../bower_components/AngularJS-Toaster/toaster.min.js"></script>
+	<script src="../bower_components/angular-tooltips/dist/angular-tooltips.min.js"></script>
+    <script src="../bower_components/jquery-ui/ui/jquery-ui.js"></script>
+	<script src="../bower_components/underscore/underscore-min.js"></script>
+	<script src="../bower_components/ui-router-extras/release/ct-ui-router-extras.min.js"></script>
+	<script src="../bower_components/ngstorage/ngStorage.js"></script>
+	<script src="../bower_components/ngLocale/angular-locale_zh.js"></script>
+	<script src="../bower_components/ng-dialog/js/ngDialog.js"></script>
+	<script src="../bower_components/ngSweetAlert/SweetAlert.js"></script>
+	<script src="../bower_components/ng-file-upload/ng-file-upload.js"></script>
+	<script src="../bower_components/ng-file-upload/ng-file-upload-shim.js"></script>
+	<script src="../bower_components/angular-toggle-switch/angular-toggle-switch.js"></script>
+	<script src="../bower_components/oclazyload/dist/ocLazyLoad.js"></script>
+	<script src="../bower_components/jsog/lib/JSOG.js"></script>
+	<script src="../bower_components/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="../bower_components/is-loading/jquery.isloading.min.js"></script>
+	<script src="../bower_components/blueimp-md5/js/md5.min.js"></script>
+	<script src="../bower_components/moment/moment.js"></script>
+	<script src="../bower_components/highcharts/highcharts.js"></script>
+	<script src="../bower_components/highcharts/highcharts-more.js"></script>
+	<script src="../bower_components/highcharts-ng/dist/highcharts-ng.js"></script>
+	<script src="../bower_components/angular-loading-bar/src/loading-bar.js"></script>
+	<script src="../bower_components/ng-grid/ng-grid-2.0.11.min.js"></script>
+	<script src="../bower_components/remodal/dist/remodal.min.js"></script>
+	<script src="http://webapi.amap.com/maps?v=1.3&key=606e2c793fa7f24ac01d0567d32560e8&&plugin=AMap.Scale,AMap.OverView,AMap.ToolBar"></script>
+	<script src="scripts/app.js"></script>
+	<script src="scripts/config.js"></script>
+	<script src="scripts/config.lazyLoad.js"></script>
+	<script src="scripts/config.router.js"></script>
+	<script src="scripts/config.run.baseurl.js"></script>
+	<script type="text/javascript" src="scripts/ga.js"></script>
+	<!-- <script src="scripts/config.run.js"></script> -->
+	<script src="scripts/services/res-tool.js"></script>
+	<script src="scripts/services/auth-tool.js"></script>
+	<script src="scripts/services/alert-tool.js"></script>
+	<script src="scripts/services/toaster-tool.js"></script>
+	<script src="scripts/services/date-tool.js"></script>
+	<script src="scripts/services/bootstrap-table.js"></script>
+	<script src="scripts/resource/bootstrap-datetimepicker.js"></script>
+	<script src="scripts/resource/bootstrap-datetimepicker.fr.js"></script>
+
+	
+	<script src="scripts/resource/data-population.js"></script>
+	<script src="scripts/resource/user-roleres.js"></script>
+	<script src="scripts/resource/pile_BookRes.js"></script>
+	<script src="scripts/resource/pile_locationRes.js"></script>
+	<script src="scripts/resource/pile_deleteRes.js"></script>
+	<script src="scripts/resource/new_pileRes.js"></script>
+	<script src="scripts/resource/account-res.js"></script>
+	<script src="scripts/resource/order_reportRes.js"></script>
+	<script src="scripts/resource/data-res.js"></script>
+	<script src="scripts/resource/new_pileRes.js"></script>
+	<script src="scripts/resource/terminal-res.js"></script>
+	<script src="scripts/resource/terminal-parameter.js"></script>
+	<div class="app app-aside-fixed" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded, 'app-aside-dock':app.settings.asideDock, 'container':app.settings.container}" ui-view>
+		
+	</div>
+	<toaster-container toaster-options="{'position-class': 'toast-top-center'}"></toaster-container>
+</body>
+</html>

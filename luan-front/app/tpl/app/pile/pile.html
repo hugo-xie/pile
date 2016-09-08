@@ -1,0 +1,111 @@
+<style type="text/css">
+    .gridStyle1 {
+    border: 1px solid rgb(212,212,212);
+    width: 99.5%; 
+    height: 500px;
+    margin:auto;
+    margin-top: 20px;
+    }
+    .modal-backdrop{
+z-index: 2;}
+</style>
+
+<div class="panel panel-default" style="width: 90%;margin:auto;margin-top: 70px;height: 700px;">
+  <div class="panel-heading" style="background-color: rgb(40,84,133);color:white">电桩预约信息</div>
+  <div class="panel-body" >
+  <div class="row">
+  <div class="col-md-2" style="margin-left: 15px">
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1" style="font-size: 5px">开始时间</span>
+      <input class="form-control" id="myDatepickerInput1" type="text" style="width: 150%;height: 30px;padding-left: 0px;padding-right: 0px" />
+      <div class="input-group-btn">
+    
+    </div>
+   </div>
+  </div>
+  <div class="col-md-2" style="margin-left: 3%">
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1" style="font-size: 5px">结束时间</span>
+      <input class="form-control" id="myDatepickerInput2" type="text" style="width: 150%;height: 30px;padding-left: 0px;padding-right: 0px"/>
+      <div class="input-group-btn">
+    
+    </div>
+   </div>
+  </div>
+  <div class="col-md-2" style="margin-left: 3%">
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1">订单ID</span>
+      <input type="text" class="form-control" placeholder="订单ID" aria-describedby="basic-addon1" id="bookid" ng-model="seacherid" style="width: 150%;height: 30px">
+    </div>
+  </div>
+  <div class="col-md-2" style="margin-left: 3%">
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1">用户ID</span>
+      <input type="text" class="form-control" placeholder="用户ID" aria-describedby="basic-addon1" id="ownerid" ng-model="userid" style="width: 150%;height: 30px">
+    </div>
+  </div>
+  <div class="col-md-2" style="margin-left: 3%">
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1">电桩ID</span>
+      <input type="text" class="form-control" placeholder="电桩ID" aria-describedby="basic-addon1" id="bookid" ng-model="pileid" style="width: 150%;height: 30px">
+    </div>
+  </div>
+
+  <div class="col-md-2" style="margin-left: 1.5%;margin-top: 1%;">
+    <div class="input-group">
+      <button type="button" class="btn btn-success btn-sm" ng-click="seach()" >开始搜索</button>
+    </div>
+  </div>
+    <div class="col-md-12">
+        <div class="container" style="width: 100%" > 
+        <div id="toolbar" style="margin-top: 20px">
+            <button id="remove" class="btn btn-danger" ng-click="deleteorder()" ng-disabled="mySelections.length==0" ng-if="isadmin">
+                <i class="glyphicon glyphicon-remove"></i> 取消订单
+            </button>
+        </div>
+        <div class="gridStyle1" ng-grid="gridOptions"></div>
+      </div>
+    </div>
+<!--     <div class="col-md-2" style="border-left: 1px dashed black;height: 650px;display: flex;flex-direction: column;align-items: center;">
+    <span>检索具体订单</span>
+      <div class="input-group" style="width:100%;margin-top: 20px">
+        <span class="input-group-addon" id="basic-addon1">城市</span>
+        <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+      </div>
+       <div class="input-group" style="width:100%;margin-top: 20px">
+        <span class="input-group-addon" id="basic-addon1">ID</span>
+        <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+      </div>
+       <div class="input-group" style="width:100%;margin-top: 20px">
+        <span class="input-group-addon" id="basic-addon1">时间</span>
+        <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+      </div>
+      <input type="button" class="btn-info" value="开始搜索" style="outline: none;border:0px;width: 100%;margin-top: 20px"></input>
+    </div> -->
+</div>
+  </div>
+</div>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="z-index: 3;margin-top: 70px">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">将要取消的订单信息</h4>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">订单ID：</span>
+          <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" id="book_ID" >
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">电桩ID</span>
+            <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" id="pile_id">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <input type="button" class="btn btn-primary" ng-click="deleteor()" value="确定取消"></input>
+      </div>
+    </div>
+  </div>
+</div>

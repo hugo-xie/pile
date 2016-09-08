@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+
+
+{% block page_content %}
+<div class="container-fluid">
+    <br /><br /><br /><br /><br /><br />
+	<div class="row-fluid">
+		 <div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span5">
+			<img alt="background.jpg" src="static/background.jpg" class="img-rounded" align="left"/>
+		</div>
+        <div class="span2">
+			<img alt="white.jpg" src="static/white.jpg" class="img-rounded" align="left"/>
+		</div>
+		<div class="span5">
+            <br /><br /><br /><br /><br /><br />
+			<form class="form-inline">
+				账号：<input type="text" />
+                <br /><br />
+                密码：<input type="text" />
+                <br /><br />
+                <label class="checkbox"><input type="checkbox" /> 记住我</label>
+                <br /><br />
+                <button class="btn btn-primary" type="submit">登录</button>
+                <button class="btn btn-primary" type="submit">注册</button>
+			</form>
+		</div>
+	</div>
+</div>
+	</div>
+</div>
+{% endblock %}
+

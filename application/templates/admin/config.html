@@ -1,0 +1,60 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+    <form action="/admin/param_submit" method="post" name="login">
+        <table>
+          <tr>
+              <td>
+                  <label>Pile SN</label>
+              </td>
+              <td>
+                  <input type="text" name="pilesn" id="pilesn"/>
+              </td>
+          </tr>
+        <!--
+          <tr>
+              <td>
+                  <label>Current (A)</label>
+              </td>
+              <td>
+                  <input type="text" name="current" id="current"/>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <label>Duration (min)</label>
+              </td>
+              <td>
+                  <input type="text" name="duration" id="duration"/>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <label>Charge Amount (W)</label>
+              </td>
+              <td>
+                  <input type="text" name="charge" id="charge"/>
+              </td>
+          </tr>
+        -->
+        <tr>
+            <td>
+                <label>Operations</label>
+            </td>
+            <td>
+                <input type="radio" name="operation" value="" checked="checked" />N/A
+                <input type="radio" name="operation" value="force_stop" />Force Stop
+                <input type="radio" name="operation" value="reboot" />Reboot
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+            </td>
+            <td>
+                <input type="submit" value="Submit""/>
+            </td>
+        </tr>
+        </table>
+    </form>
+{% endblock %}

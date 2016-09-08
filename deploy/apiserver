@@ -1,0 +1,15 @@
+/var/log/api/*.log {
+        daily
+        missingok
+        rotate 3
+        compress
+        notifempty
+        nocreate
+        sharedscripts
+        postrotate
+            if [ -f /home/webserver/charger-web-backend/gunicorn.pid ]; then
+                kill -USR1 "$(cat /home/webserver/charger-web-backend/gunicorn.pid)"
+            fi
+        endscript
+}
+

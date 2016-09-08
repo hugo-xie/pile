@@ -1,0 +1,56 @@
+<!-- navbar header -->
+
+<div class="navbar-header bg-black {{app.settings.navbarHeaderColor}}" style="height:50px;">
+    <button class="pull-right visible-xs dk" ui-toggle-class="show" data-target=".navbar-collapse">
+    <i class="glyphicon glyphicon-cog"></i>
+    </button>
+    <button class="pull-right visible-xs" ui-toggle-class="off-screen" data-target=".app-aside" ui-scroll="app">
+    <i class="glyphicon glyphicon-align-justify"></i>
+    </button>
+    <!-- brand -->
+    <a ui-sref="app.index" class="navbar-brand hidden-folded">
+        <h3 style="font-family:'KaiTi','STKaiti';color:white">智能云平台</h3>
+    </a>
+    <!-- / brand -->
+</div>
+<!-- / navbar header -->
+<!-- navbar collapse -->
+<div class="collapse pos-rlt navbar-collapse box-shadow bg-white-only {{app.settings.navbarCollapseColor}}">
+    <!-- <div class="nav navbar-nav hidden-xs">
+        <a class="btn no-shadow navbar-btn" ng-click="app.settings.asideFolded = !app.settings.asideFolded">
+            <i class="fa {{app.settings.asideFolded ? 'fa-indent' : 'fa-dedent'}} fa-fw"></i>
+        </a>
+    </div> -->
+
+    <!-- nabar right -->
+    <ul class="nav navbar-nav navbar-right">
+ 
+        <li>
+            <a>
+                <i class="icon-bell fa-fw"></i>
+                <span class="visible-xs-inline">Notifications</span>
+                <span class="badge badge-sm up bg-danger pull-right-xs"></span>
+            </a>
+        </li>
+        <li class="dropdown" dropdown>
+            <a href class="dropdown-toggle clear" data-toggle="dropdown">
+                <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
+                    <img src="images/newpic.png" alt="...">
+                    <i class="on md b-white bottom"></i>
+                </span>
+                <span class="hidden-sm hidden-md">{{loginUser.userName}}</span> <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a ui-sref="app.profile.person">个人信息</a></li>
+                <li class="divider"></li>
+                <li>
+                    <a ng-click="logout()">
+                        <span>退出</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <!-- / navbar right -->
+</div>
+<!-- / navbar collapse -->

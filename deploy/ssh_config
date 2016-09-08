@@ -1,0 +1,6 @@
+Host bitbucket.org 
+    HostName bitbucket.org 
+    User git
+    IdentityFile ~/.ssh/deploy_key_rsa
+    UserKnownHostsFile /dev/null
+    StrictHostKeyChecking no

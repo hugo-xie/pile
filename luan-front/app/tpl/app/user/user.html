@@ -1,0 +1,154 @@
+<style type="text/css">
+    .gridStyle {
+    border: 1px solid rgb(212,212,212);
+    width: 99.5%; 
+    height: 300px;
+    margin:auto;
+    margin-top: 20px;
+    }
+    .modal-backdrop{
+z-index: 10;}
+</style>
+<div class="panel panel-default" style="width: 90%;margin:auto;margin-top: 70px;height: 700px">
+  <div class="panel-heading" style="background-color: rgb(40,84,133);color:white">用户信息列表</div>
+  <div class="panel-body">
+  <div class="row">
+    <form class="form-inline">
+      <div class="form-group">
+        <label class="col-sm-4 control-label" style="margin-top: 7px">手机号码:</label>
+       <div class="col-sm-2" style="padding-left: 0px">
+        <input type="text" class="form-control" id="inputPassword" placeholder="手机号码" style="height: 30px" ng-model="pillermobile">
+       </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label" style="margin-top: 7px">车牌号码:</label>
+       <div class="col-sm-2" style="padding-left: 0px">
+        <input type="text" class="form-control" id="inputPassword" placeholder="车牌号码" style="height: 30px" ng-model="pilerplate">
+       </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-6 control-label" style="margin-top: 7px">只看桩主:</label>
+       <div class="col-sm-2" style="padding-left: 0px;outline: none;">
+        <toggle-switch ng-model="switchStatus" on-label="是" off-label="否"><toggle-switch>
+       </div>
+      </div>
+      <button type="submit" class="btn btn-success" ng-click="seachuser()" style="margin-left: 2%">开始搜索</button>
+    </form>
+  </div>
+  <div id="toolbar" style="margin-top: 10px">
+            <button id="remove" class="btn btn-success"  ng-click="uprole()" ng-disabled="mySelections.length==0">
+                <i class="glyphicon glyphicon-ok"></i> 提升权限
+            </button>
+             <button id="remove" class="btn btn-danger"  ng-click="downrole()" ng-disabled="mySelections.length==0">
+                <i class="glyphicon glyphicon-remove"></i> 降低权限
+            </button>
+             <button id="remove" class="btn btn-info"  ng-click="adduser()" >
+                <i class="glyphicon glyphicon-plus"></i> 添加用户
+            </button>
+  </div>
+    <div class="gridStyle" ng-grid="gridOptions"></div>
+  </div>
+</div>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">提升用户权限</h4>
+      </div>
+      <div class="modal-body">
+        <div class="input-group" style="margin-top: 10px">
+          <span class="input-group-addon" id="basic-addon1">用户名:</span>
+          <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" id="userrolename" disabled>
+        </div>
+        <div class="input-group" style="margin-top: 20px">
+            <span class="input-group-addon" id="basic-addon1">当前状态:</span>
+            <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" id="currentrole" disabled>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <input type="button" class="btn btn-primary" ng-click="upcurrentrole()" value="确定提升"></input>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="downModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">降低用户权限</h4>
+      </div>
+      <div class="modal-body">
+        <div class="input-group" style="margin-top: 10px">
+          <span class="input-group-addon" id="basic-addon1">用户名:</span>
+          <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" id="downuserrolename" disabled>
+        </div>
+        <div class="input-group" style="margin-top: 20px">
+            <span class="input-group-addon" id="basic-addon1">当前状态:</span>
+            <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" id="downcurrentrole" disabled>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <input type="button" class="btn btn-primary" ng-click="downcurrentrole()" value="确认降低"></input>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">添加新用户</h4>
+      </div>
+      <div class="modal-body">
+       <span style="color:red;font-size: 3px;margin-left: 65%" ng-if="addusername == null ||addusernickname == null ||adduserphone == null || adduseremail == null">注:所有信息必须全部填写完全方可提交</span>
+        <div class="input-group" style="margin-top: 10px">
+          <span class="input-group-addon" id="basic-addon1">用户名:</span>
+          <input type="text" class="form-control" placeholder="用户名" aria-describedby="basic-addon1" id="addusername" ng-model="addusername">
+        </div>
+        <div class="input-group" style="margin-top: 10px">
+          <span class="input-group-addon" id="basic-addon1">昵称:</span>
+          <input type="text" class="form-control" placeholder="昵称" aria-describedby="basic-addon1" id="addusernickname" ng-model="addusernickname">
+        </div>
+        <div class="input-group" style="margin-top: 10px">
+          <span class="input-group-addon" id="basic-addon1">角色:</span>
+          <select id="roleselect" class="form-control">
+            <option value="user">用户</option>
+            <option value="admin">管理员</option>
+            <option value="merchant">商家用户</option>
+          </select>
+        </div>
+        <div class="input-group" style="margin-top: 10px">
+          <span class="input-group-addon" id="basic-addon1">联系电话:</span>
+          <input type="text" class="form-control" placeholder="联系电话" aria-describedby="basic-addon1" id="adduserphone" ng-model="adduserphone">
+        </div>
+        <div class="input-group" style="margin-top: 10px">
+          <span class="input-group-addon" id="basic-addon1">是否可以登录:</span>
+          <select id="loginselect" class="form-control">
+            <option value="true">可以登录</option>
+            <option value="false">不可以登录</option>
+            
+          </select>
+        </div>
+        <div class="input-group" style="margin-top: 20px">
+            <span class="input-group-addon" id="basic-addon1">电子邮件:</span>
+            <input type="text" class="form-control" placeholder="电子邮件" aria-describedby="basic-addon1" id="adduseremail" ng-model="adduseremail">
+        </div>
+        <div class="input-group" style="margin-top: 20px">
+            <span class="input-group-addon" id="basic-addon1">用户车牌:</span>
+            <input type="text" class="form-control" placeholder="用户车牌" aria-describedby="basic-addon1" id="adduserplate" ng-model="adduserplate">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <input type="button" class="btn btn-primary" ng-click="addnewuser()" value="确认添加" ng-disabled="addusername == null ||addusernickname == null ||adduserphone == null || adduseremail == null || adduserplate == null"></input>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<nav class="navbar">
+    <div class="container">
+        <div class="navbar-header" style="margin-top:15px;margin-bottom:10px;font-size: 2em;font-family: 'KaiTi','STKaiti';width: 100%">
+            <a  href="/">
+          智能云平台
+        </div>
+    </div>
+</nav>
+<div class="login-page" >
+    <div class="banner-section banner-01">
+        <div class="banner-overlay"></div>
+        <div class="banner-content">
+            <div class="tiger-container clearfix">
+                <div class="panel-wrapper pull-right">
+                    <div class="panel pane-default login-panel">
+                        <div class="panel-body">
+                            <div class="clearfix">
+                                <h4 class="pull-left">"智能云平台"充电桩管理系统</h4>
+                            </div>
+                            <form class="login-form form-validation" name="loginForm" novalidate>
+                                <div class="input-group m-t-md" >
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                    <input type="text" class="form-control" ng-model="loginUser.username" placeholder="请输入账号" onfocus="if (value =='请输入账号'){value =''}" onblur="if (value ==''){ value='请输入账号'}" required/>
+                                </div>
+                                <div class="input-group m-t-md">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-lock"></i>
+                                    </span>
+                                    <input type="password" class="form-control" ng-model="loginUser.password" placeholder="请输入密码" required/>
+                                </div>
+                                <button class="btn btn-primary w-full m-t-sm" ng-click="login()" style="margin-top: 1em">登录</button>
+                                <!-- <button class="btn btn-primary w-full m-t-sm" ui-sref="app.index.economy.gdp">登录</button> -->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div data-ng-include="'tpl/portal/block/simple-footer.html'"></div>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <script type="text/javascript" src="/static/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="/static/jquery.json.min.js"></script>
+    {% set items = (
+        ('用户名', 'input', 'name', 1),
+        ('手机', 'input', 'mobile', 1),
+        ('验证码', 'input', 'code', 1),
+        ('发送验证码', 'submit', 'send_code', 0),
+        ('昵称', 'input', 'nick', 0),
+        ('密码', 'input', 'password', 1),
+        ('车牌号', 'input', 'plate', 1),
+        ('车架号', 'input', 'shell', 1),
+        ('行驶证', 'file', 'license', 1),
+        ('行驶证照片', 'img', 'license_pic', 0),
+        ('邮箱', 'input', 'email', 1),
+        ('头像', 'file', 'avatar', 0),
+        ('头像照片', 'img', 'avatar_pic', 0),
+        ('提交', 'submit', 'submit', 1)
+    ) %}
+    <script>
+        if ( typeof(FileReader) === 'undefined' ) {
+            alert("浏览器不支持 FileReader, 无法编码图片文件")
+        }
+
+        function load_img(id, pic, ret) {
+            if ($(id).val().length > 0) {
+                file = $(id).prop('files')[0]
+                if(!/image\/\w+/.test(file.type)) {
+                    alert("请选择图片文件")
+                    return false
+                }
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function (e) {
+                    b64 = this.result
+                    idx = b64.indexOf('base64,')
+                    b64 = b64.substring(idx + 7)
+                    $(ret).val(b64)
+                    $(pic).attr('src', this.result)
+                    $(pic).show()
+                }
+            }
+        }
+
+        $(document).ready(function(){
+            $.ajaxSetup({ contentType: 'application/json' });
+            $("#loading").hide()
+            $("#license_pic").hide()
+            $("#avatar_pic").hide()
+
+            $("#license").change(function() {
+                load_img("#license", "#license_pic", "#lb64")
+            })
+
+            $("#avatar").change(function() {
+                load_img("#avatar", "#avatar_pic", "#ab64")
+            })
+
+            $("#send_code").click(function(){
+                $("input").attr("disabled", true)
+                $("#loading").show()
+                $.ajax({
+                    type:'post',
+                    url:'/v1/user/code',
+                    dataType:'json',
+                    data:$.toJSON({ mobile: $("#mobile").val() }),
+                    success:function(data) {
+                        if (data.ret != 0) {
+                            alert("发送验证码失败")
+                        }
+
+                    },
+                    complete:function() {
+                        $("input").attr("disabled", false)
+                        $("#loading").hide()
+                    }
+                })
+            });
+
+            $("#submit").click(function(){
+                {% for item in items -%}
+                    {% if item[3] == 1 -%}
+                        if ($("#{{ item[2] }}").val().length == 0) {
+                            alert("需要填写{{ item[0] }}");
+                            return false;
+                        }
+                    {%- endif %}
+                {%- endfor %}
+                $("input").attr("disabled", true)
+                $("#loading").show()
+                $.ajax({
+                    type:'post',
+                    url:'/v1/user/register',
+                    dataType:'json',
+                    data:$.toJSON({
+                        {% for item in items -%}
+                            {% if item[1] == 'input' -%}
+                                {{ item[2] }}: $("#{{ item[2] }}").val(),
+                            {%- endif %}
+                        {%- endfor %}
+                        license: $("#lb64").val(),
+                        avatar: $("#ab64").val()
+                    }),
+                    success:function(data) {
+                        if (data.ret != 0) {
+                            alert(data.ret)
+                        }
+                        window.location.href = '/login'
+                    },
+                    complete:function() {
+                        $("input").attr("disabled", false)
+                        $("#loading").hide()
+                    }
+                })
+            })
+        });
+
+    </script>
+</head>
+<body>
+{% include "menu.html" %}
+<img id="loading" src="/static/loading.gif"/>
+<input type="hidden" id="lb64"/>
+<input type="hidden" id="ab64"/>
+<table>
+    {% for item in items %}
+        <tr>
+            {% if item[1] == 'input' or item[1] == 'file' %}
+                {% if item[3] == 1 %}
+                    <td><label>{{ item[0] }} *</label></td>
+                {% else %}
+                    <td><label>{{ item[0] }}</label></td>
+                {% endif %}
+                <td><input type="{{ item[1] }}" name="{{ item[2] }}" id="{{ item[2] }}"/></td>
+            {% elif item[1] == 'submit' %}
+                <td></td>
+                <td><input type="{{ item[1] }}" value="{{ item[0] }}" id="{{ item[2] }}"/></td>
+            {% elif item[1] == 'img' %}
+                <td></td>
+                <td><img alt="{{ item[0] }}" id="{{ item[2] }}"/></td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
